@@ -38,4 +38,18 @@ export default class Store {
     }
     return str
   }
+
+  @action
+  saveNumbers(numbers, fileName) {
+    saveAs(new Blob([numbers], { type: 'text/csv;charset=utf-8' }), fileName)
+    this.messages = this.messages.concat(`numbers saved to ${fileName}`)
+  }
+
+  getMaxMinNumbers() {
+    this.MinNumber = this.phoneNumbers.slice().sort((a, b) => a - b)[0]
+    this.MaxNumber = this.phoneNumbers
+      .slice()
+      .sort((a, b) => a - b)
+      .reverse()[0]
+  }
 }
