@@ -52,4 +52,29 @@ export default class Store {
       .sort((a, b) => a - b)
       .reverse()[0]
   }
+
+  @action
+  sortNumbers = order => {
+    this.sortedNumbers = this.phoneNumbers.slice().sort((a, b) => a - b)
+
+    if (order === 'asc') {
+      return (
+        this.sortedNumbers,
+        (this.messages = this.messages.concat(
+          'Numbers sorted in ascending order'
+        ))
+      )
+    } else if (order === 'desc') {
+      return (
+        (this.sortedNumbers = this.sortedNumbers.slice().reverse()),
+        (this.messages = this.messages.concat(
+          'Numbers sorted in descending order'
+        ))
+      )
+    }
+  }
+
+  @action
+  notNumber = () =>
+    (this.messages = this.messages.concat('You can only enter numbers'))
 }
